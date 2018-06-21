@@ -1,3 +1,11 @@
+/*
+	SUGESTÕES E LEMBRETES: 
+	* Para retornar as posições das palavras, usar indexOf() e length();
+	* Fazer função paraString para linha;
+	* Retornar uma String para ser analizada posteriormente (ACHOU, indexOf(), length());
+	* Matar Douglas;
+
+*/
 import java.util.Scanner;
 
 public class ProgramaCacaPalavra {

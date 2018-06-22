@@ -29,25 +29,49 @@ public class ProgramaCacaPalavra {
 		return linhaS;
 	}
 	
-	static boolean linhaNormal(char[][] m, String palavra) {
-		for (int i = 0; i < m.length; i++) {
-			if(paraString(m[i]).contains(palavra.toUpperCase())) return true;
-		}
+	static String insereSituacao(String sit, int lComeco, int cComeco, int lFim, int cFim) {
+		StringBuilder sb = new StringBuilder();
 		
-		return false;
+		sb.append("ACHOU ");
+		sb.append(lComeco + " ");
+		sb.append(cComeco + " ");
+		sb.append(lFim + " ");
+		sb.append(cFim);
+		
+		return sb.toString();
 	}
 	
-	static boolean linhaNormalInvertida(char[][] m, String palavra) {
+	static String linhaNormal(char[][] m, String palavra) {
+		String situacao = "";
+		for (int i = 0; i < m.length; i++) {
+			String palavraStr = paraString(m[i]);
+			if(palavraStr.contains(palavra.toUpperCase())) {
+				int cComeco = palavraStr.indexOf(palavra.toUpperCase());
+				situacao = insereSituacao(situacao, i, cComeco, i, cComeco + palavra.length()-1);
+				break;
+			}
+		}
+		
+		return situacao;
+	}
+	
+	static String linhaNormalInvertida(char[][] m, String palavra) {
 		StringBuilder sb = new StringBuilder();
+		String situacao = "";
 		
 		sb.append(palavra);
 		palavra = sb.reverse().toString();
 		
 		for (int i = 0; i < m.length; i++) {
-			if(paraString(m[i]).contains(palavra.toUpperCase())) return true;
+			String palavraStr = paraString(m[i]);
+			if(palavraStr.contains(palavra.toUpperCase())) {
+				int cComeco = palavraStr.indexOf(palavra.toUpperCase());
+				situacao = insereSituacao(situacao, i, cComeco + palavra.length()-1, i, cComeco);
+				break;
+			}
 		}
 		
-		return false;
+		return situacao;
 	}
 	
 	public static void main(String[] args) {
@@ -58,7 +82,6 @@ public class ProgramaCacaPalavra {
 		imprimeMatriz(matriz);
 		
 		System.out.print("\n\nInsira sua busca: ");
-		
 		System.out.println(linhaNormalInvertida(matriz, in.next()));
 		
 	}

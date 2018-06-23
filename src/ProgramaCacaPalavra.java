@@ -42,7 +42,7 @@ public class ProgramaCacaPalavra {
 	}
 	
 	static String linhaNormal(char[][] m, String palavra) {
-		String situacao = "";
+		String situacao = "NAO ACHOU";
 		for (int i = 0; i < m.length; i++) {
 			String palavraStr = paraString(m[i]);
 			if(palavraStr.contains(palavra.toUpperCase())) {
@@ -57,7 +57,7 @@ public class ProgramaCacaPalavra {
 	
 	static String linhaNormalInvertida(char[][] m, String palavra) {
 		StringBuilder sb = new StringBuilder();
-		String situacao = "";
+		String situacao = "NAO ACHOU";
 		
 		sb.append(palavra);
 		palavra = sb.reverse().toString();

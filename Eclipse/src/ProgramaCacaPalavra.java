@@ -1,7 +1,7 @@
 /*
-	SUGESTÕES E LEMBRETES: 
-	* Para retornar as posições das palavras, usar indexOf() e length();
-	* Fazer função paraString para linha;
+	SUGESTï¿½ES E LEMBRETES: 
+	* Para retornar as posiï¿½ï¿½es das palavras, usar indexOf() e length();
+	* Fazer funï¿½ï¿½o paraString para linha;
 	* Retornar uma String para ser analizada posteriormente (ACHOU, indexOf(), length());
 	* Matar Douglas;
 

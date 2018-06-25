@@ -8,7 +8,10 @@
  *
  * @author paulo
  */
+import javax.swing.*;
+import javax.swing.text.*;
 import java.awt.*;
+
 public class CacaPalavra extends javax.swing.JFrame {
 
     /**
@@ -17,7 +20,7 @@ public class CacaPalavra extends javax.swing.JFrame {
     public CacaPalavra() {
         initComponents();
     }
-
+  
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -120,6 +123,7 @@ public class CacaPalavra extends javax.swing.JFrame {
     private final char[][] m = LeitorMatriz.recuperaMatriz("matriz.txt");
     
     private void imprimeMatriz() {
+        l.setText("");
 	for (int i = 0; i < m.length; i++) {
                 for (int j = 0; j < m[1].length; j++) {
                     String txtAnt = l.getText();
@@ -165,7 +169,7 @@ public class CacaPalavra extends javax.swing.JFrame {
 	return situacao;
     }
 	
-    private String linhaNormalInvertida(char[][] m, String palavra) {
+    private static String linhaNormalInvertida(char[][] m, String palavra) {
 	StringBuilder sb = new StringBuilder();
 	String situacao = "NAO ACHOU";
 		
@@ -176,7 +180,7 @@ public class CacaPalavra extends javax.swing.JFrame {
 		String palavraStr = paraString(m[i]);
 		if(palavraStr.contains(palavra.toUpperCase())) {
 			int cComeco = palavraStr.indexOf(palavra.toUpperCase());
-			situacao = insereSituacao(i, cComeco + palavra.length()-1, i, cComeco);
+			situacao = insereSituacao(i, cComeco + palavra.length()-1, i, cComeco); 
 			break;
 		}
 	}
@@ -186,7 +190,6 @@ public class CacaPalavra extends javax.swing.JFrame {
         
     private void comecaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comecaActionPerformed
             if("Aguardando caça-palavras...".equals(l.getText())){
-            l.setText("");
             imprimeMatriz();
         }    
     }//GEN-LAST:event_comecaActionPerformed
@@ -198,6 +201,9 @@ public class CacaPalavra extends javax.swing.JFrame {
             resul.setText(linhaNormalInvertida(m, busca.getText()));
         else
             resul.setText("NÃO ACHOU");
+        String a = "oi";
+        String ver = "<html><font color=RED> " + a + " </font></html>";
+        resul.setText(ver);
     }//GEN-LAST:event_buscarActionPerformed
     
     private static void mudaCor(String palavra){

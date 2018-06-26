@@ -1,7 +1,7 @@
 /*
-	SUGESTÕES E LEMBRETES: 
-	* Para retornar as posições das palavras, usar indexOf() e length();
-	* Fazer função paraString para linha;
+	SUGESTï¿½ES E LEMBRETES: 
+	* Para retornar as posiï¿½ï¿½es das palavras, usar indexOf() e length();
+	* Fazer funï¿½ï¿½o paraString para linha;
 	* Retornar uma String para ser analizada posteriormente (ACHOU, indexOf(), length());
 	* Matar Douglas;
 
@@ -29,7 +29,7 @@ public class ProgramaCacaPalavra {
 		return linhaS;
 	}
 	
-	static String insereSituacao(String sit, int lComeco, int cComeco, int lFim, int cFim) {
+	static String insereSituacao(int lComeco, int cComeco, int lFim, int cFim) {
 		StringBuilder sb = new StringBuilder();
 		
 		sb.append("ACHOU ");
@@ -47,7 +47,7 @@ public class ProgramaCacaPalavra {
 			String palavraStr = paraString(m[i]);
 			if(palavraStr.contains(palavra.toUpperCase())) {
 				int cComeco = palavraStr.indexOf(palavra.toUpperCase());
-				situacao = insereSituacao(situacao, i, cComeco, i, cComeco + palavra.length()-1);
+				situacao = insereSituacao(i, cComeco, i, cComeco + palavra.length()-1);
 				break;
 			}
 		}
@@ -66,7 +66,7 @@ public class ProgramaCacaPalavra {
 			String palavraStr = paraString(m[i]);
 			if(palavraStr.contains(palavra.toUpperCase())) {
 				int cComeco = palavraStr.indexOf(palavra.toUpperCase());
-				situacao = insereSituacao(situacao, i, cComeco + palavra.length()-1, i, cComeco);
+				situacao = insereSituacao(i, cComeco + palavra.length()-1, i, cComeco);
 				break;
 			}
 		}

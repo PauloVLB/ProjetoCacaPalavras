@@ -19,6 +19,7 @@ public class CacaPalavra extends javax.swing.JFrame {
      */
     public CacaPalavra() {
         initComponents();
+        busca.setVisible(false);
     }
   
     /**
@@ -201,9 +202,9 @@ public class CacaPalavra extends javax.swing.JFrame {
             resul.setText(linhaNormalInvertida(m, busca.getText()));
         else
             resul.setText("NÃO ACHOU");
-        String a = "oi";
+        /*String a = "oi";
         String ver = "<html><font color=RED> " + a + " </font></html>";
-        resul.setText(ver);
+        resul.setText(ver);*/
     }//GEN-LAST:event_buscarActionPerformed
     
     private static void mudaCor(String palavra){

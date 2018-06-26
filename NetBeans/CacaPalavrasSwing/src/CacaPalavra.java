@@ -188,7 +188,21 @@ public class CacaPalavra extends javax.swing.JFrame {
 		
 	return situacao;
     }
+    
+    private static String colunaNormalInvertida(char[][] m, String palavra){
+        StringBuilder sb = new StringBuilder();
+        String situacao = "NÃO ACHOU";
         
+        sb.append(palavra);
+        palavra = sb.reverse().toString();
+        
+        for (char[] m1 : m) {
+            for (int j = 0; j < m1.length; j++) {
+              
+            }   
+        }
+        return situacao;
+    }
     private void comecaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comecaActionPerformed
             if("Aguardando caça-palavras...".equals(l.getText())){
             imprimeMatriz();

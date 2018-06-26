@@ -134,14 +134,16 @@ public class CacaPalavra extends javax.swing.JFrame {
             }
     }
 	
-    private static String paraString(char[] linha) {
-	String linhaS = "";
+    private static String splitToString(char[] linhaMatriz) {
+	StringBuilder linha = new StringBuilder();
 		
-	for (int i = 0; i < linha.length; i++) {
-		linhaS = linhaS.concat(Character.toString(linha[i]));
+	for (char charLinhaMatriz : linhaMatriz) {
+            
+            linha.append(charLinhaMatriz);
+            
 	}
 		
-	return linhaS;
+	return linha.toString();
     }
 	
     private static String insereSituacao(int lComeco, int cComeco, int lFim, int cFim) {
@@ -187,6 +189,20 @@ public class CacaPalavra extends javax.swing.JFrame {
 	}
 		
 	return situacao;
+    }
+    
+    private static String colunaNormal(char[][] m, String palavra) {
+        StringBuilder sb = new StringBuilder();
+        String situacao = "NAO ACHOU";
+        
+        sb.append(palavra);
+        
+        for (int i = 0; i < m.length; i++) {
+            
+        }
+        
+        
+        return situacao;
     }
         
     private void comecaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comecaActionPerformed

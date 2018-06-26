@@ -134,7 +134,10 @@ public class CacaPalavra extends javax.swing.JFrame {
             }
     }
 	
-    private static String splitToString(char[] linhaMatriz) {
+    /** SPLITERS **/
+    
+   
+    private static String lineToString(char[] linhaMatriz) {
 	StringBuilder linha = new StringBuilder();
 		
 	for (char charLinhaMatriz : linhaMatriz) {
@@ -144,6 +147,11 @@ public class CacaPalavra extends javax.swing.JFrame {
 	}
 		
 	return linha.toString();
+    }
+    
+    private static String columnToString(char[][] matriz) {
+	StringBuilder coluna = new StringBuilder();
+	return coluna.toString();
     }
 	
     private static String insereSituacao(int lComeco, int cComeco, int lFim, int cFim) {
@@ -161,7 +169,7 @@ public class CacaPalavra extends javax.swing.JFrame {
     private static String linhaNormal(char[][] m, String palavra) {
 	String situacao = "NAO ACHOU";
 	for (int i = 0; i < m.length; i++) {
-		String palavraStr = paraString(m[i]);
+		String palavraStr = lineToString(m[i]);
 		if(palavraStr.contains(palavra.toUpperCase())) {
 			int cComeco = palavraStr.indexOf(palavra.toUpperCase());
 			situacao = insereSituacao(i, cComeco, i, cComeco + palavra.length()-1);
@@ -180,7 +188,7 @@ public class CacaPalavra extends javax.swing.JFrame {
 	palavra = sb.reverse().toString();
 		
 	for (int i = 0; i < m.length; i++) {
-		String palavraStr = paraString(m[i]);
+		String palavraStr = lineToString(m[i]);
 		if(palavraStr.contains(palavra.toUpperCase())) {
 			int cComeco = palavraStr.indexOf(palavra.toUpperCase());
 			situacao = insereSituacao(i, cComeco + palavra.length()-1, i, cComeco); 
@@ -198,7 +206,7 @@ public class CacaPalavra extends javax.swing.JFrame {
         sb.append(palavra);
         
         for (int i = 0; i < m.length; i++) {
-            
+            String palavraStr = colunmToString(m[i]);
         }
         
         

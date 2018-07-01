@@ -250,7 +250,7 @@ public class CacaPalavra extends javax.swing.JFrame {
         return situacao.toString();
     }
     
-    private static String colunaInvertida(char[][] matriz, String palavra) {
+    private static String colunaInvertida(char[][] m, String palavra) {
         
         StringBuilder situacao = new StringBuilder("NAO ACHOU");
         StringBuilder sb = new StringBuilder(palavra);
@@ -288,6 +288,10 @@ public class CacaPalavra extends javax.swing.JFrame {
             resul.setText(linhaNormal(m, busca.getText()));
         else if(linhaInvertida(m, busca.getText()).length() > 9)
             resul.setText(linhaInvertida(m, busca.getText()));
+        else if(colunaNormal(m, busca.getText()).length() > 9)
+            resul.setText(colunaNormal(m, busca.getText()));
+        else if(colunaInvertida(m, busca.getText()).length() > 9)
+            resul.setText(colunaInvertida(m, busca.getText()));
         else
             resul.setText("NÃO ACHOU");
         /*String a = "oi";

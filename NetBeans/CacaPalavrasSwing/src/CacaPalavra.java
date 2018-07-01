@@ -250,7 +250,7 @@ public class CacaPalavra extends javax.swing.JFrame {
         return situacao.toString();
     }
     
-    private String colunaInvertida(char[][] matriz, String palavra) {
+    private static String colunaInvertida(char[][] matriz, String palavra) {
         
         StringBuilder situacao = new StringBuilder("NAO ACHOU");
         StringBuilder sb = new StringBuilder(palavra);

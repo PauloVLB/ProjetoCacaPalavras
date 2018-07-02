@@ -19,7 +19,7 @@ public class CacaPalavra extends javax.swing.JFrame {
      */
     public CacaPalavra() {
         initComponents();
-        busca.setVisible(false);
+        //busca.setVisible(false);
     }
   
     /**
@@ -155,15 +155,15 @@ public class CacaPalavra extends javax.swing.JFrame {
     
     //---COLUNA---------------------------------------------------------------//
     
-    private static String converteColunaString(char[][] matriz,int coluna) {
+    private static String converteColunaString(char[][] m,int coluna) {
         
 	StringBuilder colunaDaMatriz = new StringBuilder();
         
-        for (int i = 0; i < matriz[0].length; i++) {
+        for (int i = 0; i < m[0].length; i++) {
             
-            for (int j = 0; j < matriz.length; j++) {
+            for (int j = 0; j < m.length; j++) {
                 
-                colunaDaMatriz.append(matriz[j][i]);
+                colunaDaMatriz.append(m[j][i]);
                 
             }
             
@@ -171,6 +171,32 @@ public class CacaPalavra extends javax.swing.JFrame {
         
         
 	return colunaDaMatriz.toString();
+    }
+    
+    //---DIAGONAL-------------------------------------------------------------//
+    
+    private static String converteDiagonalString(char[][] m,int linha, int coluna) {
+        
+        StringBuilder diagonal = new StringBuilder();
+        
+        int indexColunas = m[linha].length - coluna;
+        int indexLinhas = m.length - linha;
+        
+        int tamanhoDiagonal = (indexColunas <= indexLinhas)? indexColunas:indexLinhas;
+        
+                
+        for (int i = 0; i < tamanhoDiagonal; i++) {
+            
+            diagonal.append(m[linha][coluna]);
+            
+            ++linha;
+            ++coluna;
+            
+        }
+        
+        
+        return diagonal.toString();
+        
     }
 	
     private static String insereSituacao(int lComeco, int cComeco, int lFim, int cFim) {
@@ -277,6 +303,73 @@ public class CacaPalavra extends javax.swing.JFrame {
         return situacao.toString();
     }
     
+    private static String diagonalNormal(char[][] m, String palavra) {
+        
+        StringBuilder situacao = new StringBuilder("NAO ACHOU");
+        
+        for (int i = 0; i < m.length; i++) {
+            
+            for (int j = 0; j < m[i].length; j++) {
+                
+                String diagonal = converteDiagonalString(m,i,j);
+            
+                if(diagonal.contains(palavra)) {
+                  
+                  situacao.delete(0, situacao.length());
+                
+                  int lComeco = diagonal.indexOf(palavra.toUpperCase());
+                
+                  situacao.append(insereSituacao(lComeco, j, lComeco + palavra.length()-1, j + palavra.length()-1));
+                
+                  break;
+                     
+                }
+                  
+            }
+           
+        
+        }
+        
+        
+        return situacao.toString();
+    }
+    
+    private static String diagonalInvertida(char[][] m, String palavra) {
+            
+        StringBuilder situacao = new StringBuilder("NAO ACHOU");
+        StringBuilder sb = new StringBuilder(palavra);
+        
+        palavra = sb.reverse().toString();
+        
+        for (int i = 0; i < m.length; i++) {
+            
+            for (int j = 0; j < m[i].length; j++) {
+                
+                String diagonal = converteDiagonalString(m,i,j);
+            
+                if(diagonal.contains(palavra)) {
+                  
+                  situacao.delete(0, situacao.length());
+                
+                  int lComeco = diagonal.indexOf(palavra.toUpperCase());
+                
+                  situacao.append(insereSituacao(lComeco, j, lComeco + palavra.length()-1, j + palavra.length()-1));
+                
+                  break;
+                    
+                    
+                }
+                  
+            }
+           
+        
+        }
+        
+        
+        return situacao.toString();    
+        
+    }
+    
     private void comecaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comecaActionPerformed
             if("Aguardando caça-palavras...".equals(l.getText())){
             imprimeMatriz();
@@ -292,6 +385,10 @@ public class CacaPalavra extends javax.swing.JFrame {
             resul.setText(colunaNormal(m, busca.getText()));
         else if(colunaInvertida(m, busca.getText()).length() > 9)
             resul.setText(colunaInvertida(m, busca.getText()));
+        else if (diagonalNormal(m, busca.getText()).length() > 9)
+            resul.setText(diagonalNormal(m, busca.getText()));
+        else if (diagonalNormal(m, busca.getText()).length() > 9)
+            resul.setText(diagonalNormal(m, busca.getText()));
         else
             resul.setText("NÃO ACHOU");
         /*String a = "oi";

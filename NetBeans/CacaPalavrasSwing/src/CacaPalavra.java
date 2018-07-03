@@ -20,6 +20,9 @@ public class CacaPalavra extends javax.swing.JFrame {
     public CacaPalavra() {
         initComponents();
         busca.setVisible(false);
+        buscar.setVisible(false);
+        b.setVisible(false);
+        btnDesistir.setVisible(false);
     }
   
     /**
@@ -37,13 +40,17 @@ public class CacaPalavra extends javax.swing.JFrame {
         busca = new javax.swing.JTextField();
         buscar = new javax.swing.JButton();
         resul = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        b = new javax.swing.JLabel();
         btnDesistir = new javax.swing.JButton();
+        lvl = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tela De Jogo");
 
         comeca.setText("Começar");
+        comeca.setMaximumSize(new java.awt.Dimension(75, 10));
+        comeca.setMinimumSize(new java.awt.Dimension(75, 10));
+        comeca.setPreferredSize(new java.awt.Dimension(75, 10));
         comeca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comecaActionPerformed(evt);
@@ -57,6 +64,8 @@ public class CacaPalavra extends javax.swing.JFrame {
         l.setText("Aguardando caça-palavras...");
         jScrollPane1.setViewportView(l);
 
+        busca.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+
         buscar.setText("Buscar");
         buscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -66,10 +75,18 @@ public class CacaPalavra extends javax.swing.JFrame {
 
         resul.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
-        jLabel1.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
-        jLabel1.setText("Sua busca:");
+        b.setFont(new java.awt.Font("Norasi", 0, 14)); // NOI18N
+        b.setText("Sua busca:");
 
         btnDesistir.setText("Desistir");
+
+        lvl.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        lvl.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Fácil", "Médio", "Difícil" }));
+        lvl.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lvlActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -78,22 +95,18 @@ public class CacaPalavra extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(resul, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(33, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(comeca)
-                            .addComponent(jLabel1)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(buscar)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnDesistir))
-                                .addComponent(busca, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(55, 55, 55))))
+                        .addComponent(buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnDesistir, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comeca, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(busca, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(b, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(resul, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lvl, 0, 212, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -102,16 +115,19 @@ public class CacaPalavra extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 461, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(comeca)
-                        .addGap(20, 20, 20)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(busca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(88, 88, 88)
+                        .addComponent(b)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(busca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(2, 2, 2)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(buscar)
-                            .addComponent(btnDesistir))
-                        .addGap(81, 81, 81)
+                            .addComponent(btnDesistir, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(comeca, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lvl, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(35, 35, 35)
                         .addComponent(resul, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -192,6 +208,14 @@ public class CacaPalavra extends javax.swing.JFrame {
     private void comecaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comecaActionPerformed
             if("Aguardando caça-palavras...".equals(l.getText())){
             imprimeMatriz();
+            comeca.setVisible(false);
+            lvl.setVisible(false);
+            
+            busca.setVisible(true);
+            buscar.setVisible(true);
+            b.setVisible(true);
+            btnDesistir.setVisible(true);
+            
         }    
     }//GEN-LAST:event_comecaActionPerformed
 
@@ -206,6 +230,10 @@ public class CacaPalavra extends javax.swing.JFrame {
         String ver = "<html><font color=RED> " + a + " </font></html>";
         resul.setText(ver);*/
     }//GEN-LAST:event_buscarActionPerformed
+
+    private void lvlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lvlActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lvlActionPerformed
     
     private static void mudaCor(String palavra){
         
@@ -244,13 +272,14 @@ public class CacaPalavra extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel b;
     private javax.swing.JButton btnDesistir;
     private javax.swing.JTextField busca;
     private javax.swing.JButton buscar;
     private javax.swing.JButton comeca;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea l;
+    private javax.swing.JComboBox<String> lvl;
     private javax.swing.JLabel resul;
     // End of variables declaration//GEN-END:variables
 }

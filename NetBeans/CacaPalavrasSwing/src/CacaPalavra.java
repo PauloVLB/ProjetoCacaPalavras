@@ -267,6 +267,14 @@ public class CacaPalavra extends javax.swing.JFrame {
             resul.setText(linhaNormal(m, busca.getText()));
         else if(linhaInvertida(m, busca.getText()).length() > 9)
             resul.setText(linhaInvertida(m, busca.getText()));
+        else if(colunaNormal(m, busca.getText()).length() > 9)
+            resul.setText(colunaNormal(m, busca.getText()));
+        else if(colunaInvertida(m, busca.getText()).length() > 9)
+            resul.setText(colunaInvertida(m, busca.getText()));
+        else if (diagonalNormal(m, busca.getText()).length() > 9)
+            resul.setText(diagonalNormal(m, busca.getText()));
+        else if (diagonalNormal(m, busca.getText()).length() > 9)
+            resul.setText(diagonalNormal(m, busca.getText()));
         else
             resul.setText("NÃO ACHOU");
         /*String a = "oi";

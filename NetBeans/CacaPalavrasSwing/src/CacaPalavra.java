@@ -247,6 +247,73 @@ public class CacaPalavra extends javax.swing.JFrame {
 		
 	return situacao;
     }
+    
+     private static String diagonalNormal(char[][] m, String palavra) {
+        
+        StringBuilder situacao = new StringBuilder("NAO ACHOU");
+        
+        for (int i = 0; i < m.length; i++) {
+            
+            for (int j = 0; j < m[i].length; j++) {
+                
+                String diagonal = converteDiagonalString(m,i,j);
+            
+                if(diagonal.contains(palavra)) {
+                  
+                  situacao.delete(0, situacao.length());
+                
+                  int lComeco = diagonal.indexOf(palavra.toUpperCase());
+                
+                  situacao.append(insereSituacao(lComeco, j, lComeco + palavra.length()-1, j + palavra.length()-1));
+                
+                  break;
+                     
+                }
+                  
+            }
+           
+        
+        }
+        
+        
+        return situacao.toString();
+    }
+    
+    private static String diagonalInvertida(char[][] m, String palavra) {
+            
+        StringBuilder situacao = new StringBuilder("NAO ACHOU");
+        StringBuilder sb = new StringBuilder(palavra);
+        
+        palavra = sb.reverse().toString();
+        
+        for (int i = 0; i < m.length; i++) {
+            
+            for (int j = 0; j < m[i].length; j++) {
+                
+                String diagonal = converteDiagonalString(m,i,j);
+            
+                if(diagonal.contains(palavra)) {
+                  
+                  situacao.delete(0, situacao.length());
+                
+                  int lComeco = diagonal.indexOf(palavra.toUpperCase());
+                
+                  situacao.append(insereSituacao(lComeco, j, lComeco + palavra.length()-1, j + palavra.length()-1));
+                
+                  break;
+                    
+                    
+                }
+                  
+            }
+           
+        
+        }
+        
+        
+        return situacao.toString();    
+        
+    }
         
     private void comecaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comecaActionPerformed
             if("Aguardando caça-palavras...".equals(l.getText())){

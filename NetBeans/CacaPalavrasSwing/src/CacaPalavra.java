@@ -43,6 +43,8 @@ public class CacaPalavra extends javax.swing.JFrame {
         b = new javax.swing.JLabel();
         btnDesistir = new javax.swing.JButton();
         lvl = new javax.swing.JComboBox<>();
+        tipo = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tela De Jogo");
@@ -81,12 +83,17 @@ public class CacaPalavra extends javax.swing.JFrame {
         btnDesistir.setText("Desistir");
 
         lvl.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
-        lvl.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Fácil", "Médio", "Difícil" }));
+        lvl.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1- Nível Goiabinha", "2- Goiabinha master", "3- Daniel" }));
         lvl.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 lvlActionPerformed(evt);
             }
         });
+
+        tipo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+        jLabel1.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        jLabel1.setText("© PID");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -96,24 +103,35 @@ public class CacaPalavra extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnDesistir, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(comeca, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(busca, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(b, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(resul, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lvl, 0, 212, Short.MAX_VALUE))
-                .addContainerGap(30, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnDesistir, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(comeca, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(busca, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(b, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lvl, 0, 212, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(tipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(resul, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE))
+                                .addGap(10, 10, 10)))
+                        .addContainerGap(30, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 461, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 461, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(88, 88, 88)
                         .addComponent(b)
@@ -127,9 +145,12 @@ public class CacaPalavra extends javax.swing.JFrame {
                         .addComponent(comeca, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lvl, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35)
-                        .addComponent(resul, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(tipo, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(resul, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1))))
         );
 
         pack();
@@ -482,40 +503,57 @@ public class CacaPalavra extends javax.swing.JFrame {
     
     
     private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
-        if(linhaNormal(m, busca.getText()).length() > 9){
-            resul.setText("LINHA N - "); // A PRIORI
-            resul.setText(resul.getText().concat(linhaNormal(m, busca.getText())));
+        boolean achou = false;
+        if(lvl.getSelectedItem().equals("1- Nível Goiabinha")){
+            if(linhaNormal(m, busca.getText()).length() > 9){
+                tipo.setText("LINHA NORMAL - "); // A PRIORI
+                resul.setText(linhaNormal(m, busca.getText()));
+                achou = true;
+            }
+            if(linhaInvertida(m, busca.getText()).length() > 9){
+                tipo.setText("LINHA INVERTIDA - ");
+                resul.setText(linhaInvertida(m, busca.getText()));
+                achou = true;
+            }
         }
-        else if(linhaInvertida(m, busca.getText()).length() > 9){
-            resul.setText("LINHA I - ");
-            resul.setText(resul.getText().concat(colunaNormal(m, busca.getText())));
+        if(lvl.getSelectedItem().equals("2- Goiabinha master")){
+            if(colunaNormal(m, busca.getText()).length() > 9) {
+                tipo.setText("COLUNA NORMAL - ");
+                resul.setText(colunaNormal(m, busca.getText()));
+                achou = true;
+            }
+            if(colunaInvertida(m, busca.getText()).length() > 9){
+                tipo.setText("COLUNA INVERTIDA - ");
+                resul.setText(colunaInvertida(m, busca.getText()));
+                achou = true;
+            }
         }
-        else if(colunaNormal(m, busca.getText()).length() > 9) {
-            resul.setText("COLUNA N - ");
-            resul.setText(resul.getText().concat(colunaNormal(m, busca.getText())));
+        if(lvl.getSelectedItem().equals("3- Daniel")){
+            if (diagonalPrincipalNormal(m, busca.getText()).length() > 9){
+                tipo.setText("DIAGONAL 1 NORMAL - ");
+                resul.setText(diagonalPrincipalNormal(m, busca.getText()));
+                achou = true;
+            }
+            if (diagonalPrincipalInvertida(m, busca.getText()).length() > 9){
+                tipo.setText("DIAGONAL 1 INVERTIDA - ");
+                resul.setText(diagonalPrincipalInvertida(m, busca.getText()));
+                achou = true;
+            }
+            if (diagonalSecundariaNormal(m, busca.getText()).length() > 9){
+                tipo.setText("DIAGONAL 2 NORMAL - ");
+                resul.setText(diagonalSecundariaNormal(m, busca.getText()));
+                achou = true;
+            }
+            if (diagonalSecundariaInvertida(m, busca.getText()).length() > 9){
+                tipo.setText("DIAGONAL 2 INVERTIDA - ");
+                resul.setText(diagonalSecundariaInvertida(m, busca.getText()));
+                achou = true;
+            }
         }
-        else if(colunaInvertida(m, busca.getText()).length() > 9){
-            resul.setText("COLUNA I - ");
-            resul.setText(resul.getText().concat(colunaInvertida(m, busca.getText())));
-        }
-        else if (diagonalPrincipalNormal(m, busca.getText()).length() > 9){
-            resul.setText("DIAGONAL 1 N - ");
-            resul.setText(resul.getText().concat(diagonalPrincipalNormal(m, busca.getText())));
-        }
-        else if (diagonalPrincipalInvertida(m, busca.getText()).length() > 9){
-            resul.setText("DIAGONAL 1 I - ");
-            resul.setText(resul.getText().concat(diagonalPrincipalInvertida(m, busca.getText())));
-        }
-        else if (diagonalSecundariaNormal(m, busca.getText()).length() > 9){
-            resul.setText("DIAGONAL 2 N - ");
-            resul.setText(resul.getText().concat(diagonalSecundariaNormal(m, busca.getText())));
-        }
-        else if (diagonalSecundariaInvertida(m, busca.getText()).length() > 9){
-            resul.setText("DIAGONAL 2 I - ");
-            resul.setText(resul.getText().concat(diagonalSecundariaInvertida(m, busca.getText())));
-        }
-        else
+        if(!achou){
+            tipo.setText("");
             resul.setText("NÃO ACHOU");
+        }
         /*String a = "oi";
         String ver = "<html><font color=RED> " + a + " </font></html>";
         resul.setText(ver);*/
@@ -583,9 +621,11 @@ public class CacaPalavra extends javax.swing.JFrame {
     private javax.swing.JTextField busca;
     private javax.swing.JButton buscar;
     private javax.swing.JButton comeca;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea l;
     private javax.swing.JComboBox<String> lvl;
     private javax.swing.JLabel resul;
+    private javax.swing.JLabel tipo;
     // End of variables declaration//GEN-END:variables
 }

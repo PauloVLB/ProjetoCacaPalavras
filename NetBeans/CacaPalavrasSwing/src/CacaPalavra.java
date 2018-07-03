@@ -173,7 +173,7 @@ public class CacaPalavra extends javax.swing.JFrame {
         return colunaS;
     }
      
-    private static String converteDiagonalString(char[][] m,int linha, int coluna) {
+    private static String converteDiagonalPrincipalString(char[][] m,int linha, int coluna) {
         
         StringBuilder diagonal = new StringBuilder();
         
@@ -194,6 +194,38 @@ public class CacaPalavra extends javax.swing.JFrame {
         
         return diagonal.toString();
         
+    }
+    
+    private static String converteDiagonalSecundariaString(char[][] m,int linha, int coluna) {
+        
+        StringBuilder diagonal = new StringBuilder();
+        
+        int indexColunas = m[linha].length - coluna;
+        int indexLinhas = m.length - linha;
+        
+        int tamanhoDiagonal = 0;
+        
+        if (coluna == 0) 
+            tamanhoDiagonal = 1;
+        else if ((indexColunas < indexLinhas) && (indexColunas != 1)) 
+            tamanhoDiagonal = indexColunas;
+        else
+            tamanhoDiagonal = indexLinhas;
+        
+                
+        for (int i = 0; i < tamanhoDiagonal; i++) {
+            
+            diagonal.append(m[linha][coluna]);
+            
+           
+            --linha;
+            --coluna;   
+  
+        }
+        
+        System.out.println(diagonal); // !!
+        
+        return diagonal.toString(); 
     }
     
     
@@ -292,7 +324,7 @@ public class CacaPalavra extends javax.swing.JFrame {
     
     
     
-    private static String diagonalNormal(char[][] m, String palavra) {
+    private static String diagonalPrincipalNormal(char[][] m, String palavra) {
         
         StringBuilder situacao = new StringBuilder("NAO ACHOU");
         
@@ -300,7 +332,7 @@ public class CacaPalavra extends javax.swing.JFrame {
             
             for (int j = 0; j < m[i].length; j++) {
                 
-                String diagonal = converteDiagonalString(m,i,j);
+                String diagonal = converteDiagonalPrincipalString(m,i,j);
             
                 if(diagonal.contains(palavra.toUpperCase())) {
                   
@@ -323,7 +355,7 @@ public class CacaPalavra extends javax.swing.JFrame {
         return situacao.toString();
     }
     
-    private static String diagonalInvertida(char[][] m, String palavra) {
+    private static String diagonalPrincipalInvertida(char[][] m, String palavra) {
             
         StringBuilder situacao = new StringBuilder("NAO ACHOU");
         StringBuilder sb = new StringBuilder(palavra);
@@ -334,7 +366,74 @@ public class CacaPalavra extends javax.swing.JFrame {
             
             for (int j = 0; j < m[i].length; j++) {
                 
-                String diagonal = converteDiagonalString(m,i,j);
+                String diagonal = converteDiagonalPrincipalString(m,i,j);
+            
+                if(diagonal.contains(palavra.toUpperCase())) {
+                  
+                  situacao.delete(0, situacao.length());
+                
+                  int lComeco = diagonal.indexOf(palavra.toUpperCase());
+                
+                  situacao.append(insereSituacao(lComeco + palavra.length()-1, j + palavra.length()-1, lComeco, j));
+                
+                  break;
+                    
+                    
+                }
+                  
+            }
+           
+        
+        }
+        
+        
+        return situacao.toString();    
+        
+    }
+
+    private static String diagonalSecundariaNormal(char[][] m, String palavra) {
+        
+        StringBuilder situacao = new StringBuilder("NAO ACHOU");
+        
+        for (int i = 0; i < m.length; i++) {
+            
+            for (int j = 0; j < m[i].length; j++) {
+                
+                String diagonal = converteDiagonalSecundariaString(m,i,j);
+            
+                if(diagonal.contains(palavra.toUpperCase())) {
+                  
+                  situacao.delete(0, situacao.length());
+                
+                  int lComeco = diagonal.indexOf(palavra.toUpperCase());
+                
+                  situacao.append(insereSituacao(lComeco, j, lComeco + palavra.length()-1, j + palavra.length()-1));
+                
+                  break;
+                     
+                }
+                  
+            }
+           
+        
+        }
+        
+        
+        return situacao.toString();
+    }
+    
+    private static String diagonalSecundariaInvertida(char[][] m, String palavra) {
+            
+        StringBuilder situacao = new StringBuilder("NAO ACHOU");
+        StringBuilder sb = new StringBuilder(palavra);
+        
+        palavra = sb.reverse().toString();
+        
+        for (int i = 0; i < m.length; i++) {
+            
+            for (int j = m[i].length - 1; j >= 0; j--) {
+                
+                String diagonal = converteDiagonalSecundariaString(m,i,j);
             
                 if(diagonal.contains(palavra.toUpperCase())) {
                   
@@ -361,7 +460,7 @@ public class CacaPalavra extends javax.swing.JFrame {
 
 
 
-
+   
     
     private void comecaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comecaActionPerformed
             if("Aguardando caça-palavras...".equals(l.getText())){
@@ -399,13 +498,21 @@ public class CacaPalavra extends javax.swing.JFrame {
             resul.setText("COLUNA I - ");
             resul.setText(resul.getText().concat(colunaInvertida(m, busca.getText())));
         }
-        else if (diagonalNormal(m, busca.getText()).length() > 9){
-            resul.setText("DIAGONAL N - ");
-            resul.setText(resul.getText().concat(diagonalNormal(m, busca.getText())));
+        else if (diagonalPrincipalNormal(m, busca.getText()).length() > 9){
+            resul.setText("DIAGONAL 1 N - ");
+            resul.setText(resul.getText().concat(diagonalPrincipalNormal(m, busca.getText())));
         }
-        else if (diagonalInvertida(m, busca.getText()).length() > 9){
-            resul.setText("DIAGONAL I - ");
-            resul.setText(resul.getText().concat(diagonalInvertida(m, busca.getText())));
+        else if (diagonalPrincipalInvertida(m, busca.getText()).length() > 9){
+            resul.setText("DIAGONAL 1 I - ");
+            resul.setText(resul.getText().concat(diagonalPrincipalInvertida(m, busca.getText())));
+        }
+        else if (diagonalSecundariaNormal(m, busca.getText()).length() > 9){
+            resul.setText("DIAGONAL 2 N - ");
+            resul.setText(resul.getText().concat(diagonalSecundariaNormal(m, busca.getText())));
+        }
+        else if (diagonalSecundariaInvertida(m, busca.getText()).length() > 9){
+            resul.setText("DIAGONAL 2 I - ");
+            resul.setText(resul.getText().concat(diagonalSecundariaInvertida(m, busca.getText())));
         }
         else
             resul.setText("NÃO ACHOU");

@@ -342,7 +342,7 @@ public class CacaPalavra extends javax.swing.JFrame {
                 
                   int lComeco = diagonal.indexOf(palavra.toUpperCase());
                 
-                  situacao.append(insereSituacao(lComeco, j, lComeco + palavra.length()-1, j + palavra.length()-1));
+                  situacao.append(insereSituacao(lComeco + palavra.length()-1, j + palavra.length()-1, lComeco, j));
                 
                   break;
                     
@@ -383,18 +383,30 @@ public class CacaPalavra extends javax.swing.JFrame {
     
     
     private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
-        if(linhaNormal(m, busca.getText()).length() > 9)
-            resul.setText(linhaNormal(m, busca.getText()));
-        else if(linhaInvertida(m, busca.getText()).length() > 9)
-            resul.setText(linhaInvertida(m, busca.getText()));
-        else if(colunaNormal(m, busca.getText()).length() > 9)
-            resul.setText(colunaNormal(m, busca.getText()));
-        else if(colunaInvertida(m, busca.getText()).length() > 9)
-            resul.setText(colunaInvertida(m, busca.getText()));
-        else if (diagonalNormal(m, busca.getText()).length() > 9)
-            resul.setText(diagonalNormal(m, busca.getText()));
-        else if (diagonalInvertida(m, busca.getText()).length() > 9)
-            resul.setText(diagonalInvertida(m, busca.getText()));
+        if(linhaNormal(m, busca.getText()).length() > 9){
+            resul.setText("LINHA N - "); // A PRIORI
+            resul.setText(resul.getText().concat(linhaNormal(m, busca.getText())));
+        }
+        else if(linhaInvertida(m, busca.getText()).length() > 9){
+            resul.setText("LINHA I - ");
+            resul.setText(resul.getText().concat(colunaNormal(m, busca.getText())));
+        }
+        else if(colunaNormal(m, busca.getText()).length() > 9) {
+            resul.setText("COLUNA N - ");
+            resul.setText(resul.getText().concat(colunaNormal(m, busca.getText())));
+        }
+        else if(colunaInvertida(m, busca.getText()).length() > 9){
+            resul.setText("COLUNA I - ");
+            resul.setText(resul.getText().concat(colunaInvertida(m, busca.getText())));
+        }
+        else if (diagonalNormal(m, busca.getText()).length() > 9){
+            resul.setText("DIAGONAL N - ");
+            resul.setText(resul.getText().concat(diagonalNormal(m, busca.getText())));
+        }
+        else if (diagonalInvertida(m, busca.getText()).length() > 9){
+            resul.setText("DIAGONAL I - ");
+            resul.setText(resul.getText().concat(diagonalInvertida(m, busca.getText())));
+        }
         else
             resul.setText("NÃO ACHOU");
         /*String a = "oi";

@@ -149,7 +149,11 @@ public class CacaPalavra extends javax.swing.JFrame {
                 l.setText(l.getText().concat("\n"));
             }
     }
-	
+    
+    
+    
+    
+    	
     private static String converteLinhaString(char[] linha) {
 	String linhaS = "";
 		
@@ -159,7 +163,8 @@ public class CacaPalavra extends javax.swing.JFrame {
 		
 	return linhaS;
     }
-     private static String converteColunaString(char[][] m,int coluna){
+    
+    private static String converteColunaString(char[][] m,int coluna){
         String colunaS = "";
         
             for (int i = 0; i < m.length; i++) {
@@ -167,7 +172,34 @@ public class CacaPalavra extends javax.swing.JFrame {
             }
         return colunaS;
     }
-	
+     
+    private static String converteDiagonalString(char[][] m,int linha, int coluna) {
+        
+        StringBuilder diagonal = new StringBuilder();
+        
+        int indexColunas = m[linha].length - coluna;
+        int indexLinhas = m.length - linha;
+        
+        int tamanhoDiagonal = (indexColunas <= indexLinhas)? indexColunas:indexLinhas;
+        
+                
+        for (int i = 0; i < tamanhoDiagonal; i++) {
+            
+            diagonal.append(m[linha][coluna]);
+            
+            ++linha;
+            ++coluna;
+            
+        }
+        
+        return diagonal.toString();
+        
+    }
+    
+    
+    
+    
+    
     private static String insereSituacao(int lComeco, int cComeco, int lFim, int cFim) {
 	StringBuilder sb = new StringBuilder();
 		
@@ -179,7 +211,11 @@ public class CacaPalavra extends javax.swing.JFrame {
 		
 	return sb.toString();
     }
-	
+    
+    
+    
+    
+    
     private static String linhaNormal(char[][] m, String palavra) {
 	String situacao = "NAO ACHOU";
 	for (int i = 0; i < m.length; i++) {
@@ -212,6 +248,10 @@ public class CacaPalavra extends javax.swing.JFrame {
 		
 	return situacao;
     }
+    
+    
+    
+    
     
     private static String colunaNormal(char[][] m, String palavra){
 	String situacao = "NAO ACHOU";
@@ -248,7 +288,11 @@ public class CacaPalavra extends javax.swing.JFrame {
 	return situacao;
     }
     
-     private static String diagonalNormal(char[][] m, String palavra) {
+    
+    
+    
+    
+    private static String diagonalNormal(char[][] m, String palavra) {
         
         StringBuilder situacao = new StringBuilder("NAO ACHOU");
         
@@ -314,7 +358,11 @@ public class CacaPalavra extends javax.swing.JFrame {
         return situacao.toString();    
         
     }
-        
+
+
+
+
+    
     private void comecaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comecaActionPerformed
             if("Aguardando caça-palavras...".equals(l.getText())){
             imprimeMatriz();
@@ -329,6 +377,11 @@ public class CacaPalavra extends javax.swing.JFrame {
         }    
     }//GEN-LAST:event_comecaActionPerformed
 
+    
+    
+    
+    
+    
     private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
         if(linhaNormal(m, busca.getText()).length() > 9)
             resul.setText(linhaNormal(m, busca.getText()));
@@ -349,13 +402,25 @@ public class CacaPalavra extends javax.swing.JFrame {
         resul.setText(ver);*/
     }//GEN-LAST:event_buscarActionPerformed
 
+    
+    
+    
+    
     private void lvlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lvlActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_lvlActionPerformed
+   
+    
+    
+    
     
     private static void mudaCor(String palavra){
         
     }
+    
+    
+    
+    
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -388,6 +453,10 @@ public class CacaPalavra extends javax.swing.JFrame {
             }
         });
     }
+    
+    
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel b;

@@ -302,7 +302,7 @@ public class CacaPalavra extends javax.swing.JFrame {
                 
                 String diagonal = converteDiagonalString(m,i,j);
             
-                if(diagonal.contains(palavra)) {
+                if(diagonal.contains(palavra.toUpperCase())) {
                   
                   situacao.delete(0, situacao.length());
                 
@@ -336,7 +336,7 @@ public class CacaPalavra extends javax.swing.JFrame {
                 
                 String diagonal = converteDiagonalString(m,i,j);
             
-                if(diagonal.contains(palavra)) {
+                if(diagonal.contains(palavra.toUpperCase())) {
                   
                   situacao.delete(0, situacao.length());
                 

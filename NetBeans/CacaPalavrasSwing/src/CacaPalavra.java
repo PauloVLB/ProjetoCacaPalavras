@@ -647,50 +647,46 @@ public class CacaPalavra extends javax.swing.JFrame {
     
     /*********      PROCURA(S)      *********/    
     
-    private static StringBuilder sb = new StringBuilder();
-    
     // PROCURA LINHA
     
     private void procuraLinhas() {
         
-        resul.setText("");
+        StringBuilder sb1 = new StringBuilder();
+        StringBuilder sb2 = new StringBuilder();
         
         System.out.println("*procuraLinhas() iniciada.\n");
         
-        sb.delete(0, sb.length());
-        sb.append(linhaNormal(m, busca.getText()));
+        sb1.append(linhaNormal(m, busca.getText()));
 
-        if(sb.toString().length() > 9) {
+        if(sb1.toString().length() > 9) {
             
             System.out.println("| Setando linha normal...\n");
 
             tipo.setText("[LINHA NORMAL] ");
-            resul.setText(sb.toString());
+            resul.setText(sb1.toString());
             
         }
+        
+        sb2.append(linhaInvertida(m, busca.getText()));
 
-        sb.delete(0, sb.length());
-        sb.append(linhaInvertida(m, busca.getText()));
-
-        if(sb.toString().length() > 9) {
+        if(sb2.toString().length() > 9) {
             
             System.out.println("| Setando linha invertida...\n");
 
             tipo.setText("[LINHA INVERTIDA]");
-            resul.setText(sb.toString());
+            resul.setText(sb2.toString());
 
         }
     }
     
 
     
-    private void procuraColunas() {
+    private void procuraColunas() {     
         
-        resul.setText("");
+        StringBuilder sb = new StringBuilder();
         
-        System.out.println("procuraColunas() iniciada.");
+        System.out.println("*procuraColunas() iniciada.\n");
         
-        sb.delete(0, sb.length());
         sb.append(colunaNormal(m, busca.getText()));
 
         if(sb.toString().length() > 9) {
@@ -714,27 +710,26 @@ public class CacaPalavra extends javax.swing.JFrame {
     
     private void procuraDiagonais() {
         
-        resul.setText("");
+        StringBuilder sb1 = new StringBuilder();
+        StringBuilder sb2 = new StringBuilder();
         
         System.out.println("procuraDiagonais() iniciada.");
         
-        sb.delete(0, sb.length());
-        sb.append(diagonalPrincipalNormal(m, busca.getText()));
+        sb1.append(diagonalPrincipalNormal(m, busca.getText()));
 
-        if (sb.length() > 9){
+        if (sb1.length() > 9){
 
             tipo.setText("[DIAGONAL PRINCIPAL NORMAL]");
-            resul.setText(sb.toString());
+            resul.setText(sb1.toString());
 
         }
 
-        sb.delete(0, sb.length());
-        sb.append(diagonalPrincipalInvertida(m, busca.getText()));
+        sb2.append(diagonalPrincipalInvertida(m, busca.getText()));
 
-        if (sb.length() > 9){
+        if (sb2.length() > 9){
 
             tipo.setText("[DIAGONAL PRINCIPAL INVERTIDA]");
-            resul.setText(sb.toString());
+            resul.setText(sb2.toString());
 
         }
         

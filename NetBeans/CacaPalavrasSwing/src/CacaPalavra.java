@@ -165,7 +165,11 @@ public class CacaPalavra extends javax.swing.JFrame {
 	for (int i = 0; i < m.length; i++) {
                 for (int j = 0; j < m[1].length; j++) {
                     String txtAnt = l.getText();
-                    l.setText(txtAnt.concat(" " + Character.toString(m[i][j]) + " "));
+                    if(i < 15)
+                        l.setText(txtAnt.concat(" " + Character.toString(m[i][j]).toLowerCase() + " "));
+                    else
+                        l.setText(txtAnt.concat(" " + Character.toString(m[i][j]) + " "));
+
                 }
                 l.setText(l.getText().concat("\n"));
             }

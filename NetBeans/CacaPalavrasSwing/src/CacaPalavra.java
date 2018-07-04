@@ -166,14 +166,25 @@ public class CacaPalavra extends javax.swing.JFrame {
     private final char[][] m = LeitorMatriz.recuperaMatriz("matriz.txt");
     
     private void imprimeMatriz() {
+        
         l.setText("");
+        
 	for (int i = 0; i < m.length; i++) {
-                for (int j = 0; j < m[1].length; j++) {
-                    String txtAnt = l.getText();
-                    l.setText(txtAnt.concat(" " + Character.toString(m[i][j]).toLowerCase() + " "));
-                }
-                l.setText(l.getText().concat("\n"));
+            
+            for (int j = 0; j < m[1].length; j++) {
+                
+                String txtAnt = l.getText();
+  
+                l.setText(txtAnt.concat(" " + Character.toString(m[i][j]).toLowerCase() + " "));
+            
             }
+            
+            l.setText(l.getText().concat("\n"));
+        
+        }
+        
+        System.out.println("*imprimeMatriz() executada.\n");
+        
     }
     
     
@@ -181,22 +192,31 @@ public class CacaPalavra extends javax.swing.JFrame {
     
     	
     private static String converteLinhaString(char[] linha) {
-	String linhaS = "";
+	
+        StringBuilder linhaMatriz = new StringBuilder();
 		
 	for (int i = 0; i < linha.length; i++) {
-		linhaS = linhaS.concat(Character.toString(linha[i]));
-	}
-		
-	return linhaS;
+            
+            linhaMatriz.append(linha[i]);
+	
+        }
+        
+	return linhaMatriz.toString();
+        
     }
     
-    private static String converteColunaString(char[][] m,int coluna){
-        String colunaS = "";
+    private static String converteColunaString(char[][] m,int coluna) {
         
-            for (int i = 0; i < m.length; i++) {
-                colunaS = colunaS.concat(Character.toString(m[i][coluna]));     
-            }
-        return colunaS;
+        StringBuilder colunaMatriz = new StringBuilder();
+        
+        for (int i = 0; i < m.length; i++) {
+
+            colunaMatriz.append(m[i][coluna]);     
+
+        }
+        
+        return colunaMatriz.toString();
+    
     }
      
     private static String converteDiagonalPrincipalString(char[][] m,int linha, int coluna) {
@@ -222,7 +242,7 @@ public class CacaPalavra extends javax.swing.JFrame {
         
     }
     
-    private static String converteDiagonalSecundariaString(char[][] m,int linha, int coluna) {
+    /*private static String converteDiagonalSecundariaString(char[][] m,int linha, int coluna) {
         
         StringBuilder diagonal = new StringBuilder();
         
@@ -243,7 +263,6 @@ public class CacaPalavra extends javax.swing.JFrame {
             
             diagonal.append(m[linha][coluna]);
             
-           
             --linha;
             --coluna;   
   
@@ -252,22 +271,26 @@ public class CacaPalavra extends javax.swing.JFrame {
         System.out.println(diagonal); // !!
         
         return diagonal.toString(); 
-    }
+    }*/
     
     
     
     
     
     private static String insereSituacao(int lComeco, int cComeco, int lFim, int cFim) {
-	StringBuilder sb = new StringBuilder();
+        
+        StringBuilder aux = new StringBuilder();
 		
-	sb.append("ACHOU ");
-	sb.append(lComeco + " ");
-	sb.append(cComeco + " ");
-	sb.append(lFim + " ");
-	sb.append(cFim);
+	aux.append("ACHOU ");
+	aux.append(lComeco + " ");
+	aux.append(cComeco + " ");
+	aux.append(lFim + " ");
+	aux.append(cFim);
+        
+        System.out.println("/-insereSituacao() executada.");
 		
-	return sb.toString();
+	return aux.toString();
+        
     }
     
     
@@ -275,36 +298,83 @@ public class CacaPalavra extends javax.swing.JFrame {
     
     
     private static String linhaNormal(char[][] m, String palavra) {
-	String situacao = "NAO ACHOU";
-	for (int i = 0; i < m.length; i++) {
-		String palavraStr = converteLinhaString(m[i]);
-		if(palavraStr.contains(palavra.toUpperCase())) {
-			int cComeco = palavraStr.indexOf(palavra.toUpperCase());
-			situacao = insereSituacao(i, cComeco, i, cComeco + palavra.length()-1);
-			break;
-		}
+	
+        System.out.println("*linhaNormal() iniciada.-----------------------------\n");
+        
+        StringBuilder situacao = new StringBuilder("NAO ACHOU");
+	
+        for (int i = 0; i < m.length; i++) {
+            
+            String linhaMatriz = converteLinhaString(m[i]);
+            
+            if(linhaMatriz.contains(palavra.toUpperCase())) {
+                
+                System.out.printf("**linhaMatriz(%d) contém: %s\n",i,palavra);
+            
+                int cComeco = linhaMatriz.indexOf(palavra.toUpperCase());
+                
+                situacao.delete(0, situacao.length());
+                
+                situacao.append(insereSituacao(i, cComeco, i, cComeco + palavra.length()-1));
+                
+                System.out.println("**situacao recebeu: " + situacao.toString());
+                
+                System.out.printf("\n*linhaNormal() finalizada.-----------------------------\n\n");
+                
+                return situacao.toString();
+                
+            } else {
+                
+                System.out.printf("Não foi encontrado [%s] em linhaMatriz(%d).\n", palavra, i);
+                
+            }
 	}
+        
+        System.out.println("\n*linhaNormal() finalizada.-----------------------------\n\n");
 		
-	return situacao;
+	return situacao.toString();
+        
     }
 	
     private static String linhaInvertida(char[][] m, String palavra) {
-	StringBuilder sb = new StringBuilder();
-	String situacao = "NAO ACHOU";
-		
-	sb.append(palavra);
-	palavra = sb.reverse().toString();
+	
+        System.out.println("*linhaInvertida() iniciada.-----------------------------\n");
+        
+        StringBuilder situacao = new StringBuilder("NAO ACHOU");
+        StringBuilder aux = new StringBuilder(palavra);
+	
+        palavra = aux.reverse().toString();
 		
 	for (int i = 0; i < m.length; i++) {
-		String palavraStr = converteLinhaString(m[i]);
-		if(palavraStr.contains(palavra.toUpperCase())) {
-			int cComeco = palavraStr.indexOf(palavra.toUpperCase());
-			situacao = insereSituacao(i, cComeco + palavra.length()-1, i, cComeco); 
-			break;
-		}
+            
+            String linhaMatriz = converteLinhaString(m[i]);
+            
+            if(linhaMatriz.contains(palavra.toUpperCase())) {
+                
+                System.out.printf("**linhaMatriz(%d) contém: %s\n\n",i,palavra);
+                
+                int cComeco = linhaMatriz.indexOf(palavra.toUpperCase());
+                
+                situacao.delete(0, situacao.length());
+                
+                situacao.append(insereSituacao(i, cComeco + palavra.length()-1, i, cComeco)); 
+                
+                System.out.println("**situacao recebeu: " + situacao.toString());
+                
+                System.out.printf("\n*linhaInvertida() finalizada.-----------------------------\n");
+                
+                return situacao.toString();
+            
+            } else {
+                
+                System.out.printf("Não foi encontrado [%s] em linhaMatriz(%d).\n", palavra, i);
+                
+            }
 	}
+        
+        System.out.println("\n*linhaInvertida() finalizada.-----------------------------\n");
 		
-	return situacao;
+	return situacao.toString();
     }
     
     
@@ -312,38 +382,84 @@ public class CacaPalavra extends javax.swing.JFrame {
     
     
     private static String colunaNormal(char[][] m, String palavra){
-	String situacao = "NAO ACHOU";
-		
-		
+        
+        System.out.println("*colunaNormal() iniciada.-----------------------------\n");
+	
+        StringBuilder situacao = new StringBuilder("NAO ACHOU");
+	
 	for (int i = 0; i < m[i].length; i++) {
-		String palavraStr = converteColunaString(m, i);
-		if(palavraStr.contains(palavra.toUpperCase())) {
-			int cComeco = palavraStr.indexOf(palavra.toUpperCase());
-			situacao = insereSituacao(cComeco, i , cComeco + palavra.length()-1, i); 
-			break;
-		}
+            
+            String colunaMatriz = converteColunaString(m, i);
+            
+            if(colunaMatriz.contains(palavra.toUpperCase())) {
+                
+                System.out.printf("**colunaMatriz(%d) contém: %s\n\n",i,palavra);
+                
+                int cComeco = colunaMatriz.indexOf(palavra.toUpperCase());
+                
+                situacao.delete(0, situacao.length());
+                
+                situacao.append(insereSituacao(cComeco, i , cComeco + palavra.length()-1, i)); 
+                
+                System.out.println("**situacao recebeu: " + situacao.toString());
+                
+                System.out.printf("\n*colunaNormal() finalizada.-----------------------------\n");
+                
+                return situacao.toString();
+            
+            } else {
+                
+                System.out.printf("Não foi encontrado [%s] em colunaMatriz(%d).\n", palavra, i);
+                
             }
+        }
+        
+        System.out.println("\n*colunaNormal() finalizada.-----------------------------\n");
 		
-	return situacao;
+	return situacao.toString();
+        
     }
     
     private static String colunaInvertida(char[][] m, String palavra){
-       StringBuilder sb = new StringBuilder();
-	String situacao = "NAO ACHOU";
-		
-	sb.append(palavra);
-	palavra = sb.reverse().toString();
+        
+        System.out.println("*colunaInvertida() iniciada.-----------------------------\n");
+        
+        StringBuilder situacao = new StringBuilder("NAO ACHOU");
+        StringBuilder aux = new StringBuilder(palavra);
+	
+        palavra = aux.reverse().toString();
 		
 	for (int i = 0; i < m[i].length; i++) {
-		String palavraStr = converteColunaString(m, i);
-		if(palavraStr.contains(palavra.toUpperCase())) {
-			int cComeco = palavraStr.indexOf(palavra.toUpperCase());
-			situacao = insereSituacao(cComeco + palavra.length()-1, i, cComeco, i); 
-			break;
-		}
-            }
+            
+            String colunaMatriz = converteColunaString(m, i);
+            
+            if(colunaMatriz.contains(palavra.toUpperCase())) {
+                
+                System.out.printf("**linhaMatriz(%d) contém: %s\n\n",i,palavra);
+                
+                int cComeco = colunaMatriz.indexOf(palavra.toUpperCase());
+                
+                situacao.delete(0, situacao.length());
+                
+                situacao.append(insereSituacao(cComeco + palavra.length()-1, i, cComeco, i)); 
+                
+                System.out.println("**situacao recebeu: " + situacao.toString());
+                
+                System.out.printf("\n*colunaInvertida() finalizada.-----------------------------\n",
+                        situacao.toString());
 		
-	return situacao;
+                return situacao.toString();
+            
+            } else {
+                
+                System.out.printf("Não foi encontrado [%s] em colunaMatriz(%d).\n", palavra, i);
+                
+            }
+        }
+        
+        System.out.println("\n*colunaInvertida() finalizada.-----------------------------\n");
+		
+	return situacao.toString();
     }
     
     
@@ -352,8 +468,9 @@ public class CacaPalavra extends javax.swing.JFrame {
     
     private static String diagonalPrincipalNormal(char[][] m, String palavra) {
         
+        System.out.println("*diagonalPrincipalNormal() iniciada.-----------------------------\n");
+        
         System.out.println("busca: " + palavra);
-        System.out.println("diagonalPrincipalNormal() iniciada.");
         
         StringBuilder situacao = new StringBuilder("NAO ACHOU");
         
@@ -363,17 +480,15 @@ public class CacaPalavra extends javax.swing.JFrame {
             
             String linhaMatriz = converteLinhaString(m[i]);
             
-            System.out.printf("\tlinhaMatriz(%d) convertida para: %s\n", i,linhaMatriz);
-            
             for (int j = 0; j < m[i].length; j++) {
                        
                 if(linhaMatriz.charAt(j) == palavra.charAt(0)) {
                     
-                  System.out.printf("\tlinhaMatriz.charAt(%d) == palavra.charAt(0).\n",j);
+                  System.out.printf("**linhaMatriz.charAt(%d) == palavra.charAt(0).\n",j);
                                            
                   String diagonal = converteDiagonalPrincipalString(m,i,j);
                   
-                  System.out.printf("\tdiagonal convertida para: %s\n",diagonal);
+                  System.out.printf("**diagonal convertida para: %s\n",diagonal);
                   
                   if (diagonal.startsWith(palavra)) {
                       
@@ -381,15 +496,15 @@ public class CacaPalavra extends javax.swing.JFrame {
                 
                     situacao.append(insereSituacao(i,j, i + palavra.length()-1, j + palavra.length()-1));
                   
-                    System.out.println("\tsituacao: " + situacao);
+                    System.out.println("**situacao: " + situacao);
                   
-                    System.out.println("Função diagonalPrincipalNormal() finalizada.\n\n");
+                    System.out.printf("*Função diagonalPrincipalNormal() finalizada.-----------------------------\n\n");
                   
                     return situacao.toString(); 
                   
                   } else {
                       
-                      System.out.printf("Não foi encontrado [%s] nessa diagonal.\n", palavra);
+                      System.out.printf("*Não foi encontrado [%s] nessa diagonal.-----------------------------\n", palavra);
                       
                   }
                      
@@ -399,12 +514,14 @@ public class CacaPalavra extends javax.swing.JFrame {
            
         }
         
-        System.out.println("Função diagonalPrincipalNormal() finalizada.\n\n");
+        System.out.println("*Função diagonalPrincipalNormal() finalizada.-----------------------------\n");
         
         return situacao.toString();
     }
     
     private static String diagonalPrincipalInvertida(char[][] m, String palavra) {
+        
+        System.out.println("*diagonalPrincipalInvertida() iniciada.");
         
         System.out.println("busca: " + palavra);
         System.out.println("diagonalPrincipalInvertida() iniciada.");
@@ -525,14 +642,136 @@ public class CacaPalavra extends javax.swing.JFrame {
         return situacao.toString();    
         
     }*/
+    
+    
+    
+    /*********      PROCURA(S)      *********/    
+    
+    private static StringBuilder sb = new StringBuilder();
+    
+    // PROCURA LINHA
+    
+    private void procuraLinhas() {
+        
+        resul.setText("");
+        
+        System.out.println("*procuraLinhas() iniciada.\n");
+        
+        sb.delete(0, sb.length());
+        sb.append(linhaNormal(m, busca.getText()));
+
+        if(sb.toString().length() > 9) {
+            
+            System.out.println("| Setando linha normal...\n");
+
+            tipo.setText("[LINHA NORMAL] ");
+            resul.setText(sb.toString());
+            
+        }
+
+        sb.delete(0, sb.length());
+        sb.append(linhaInvertida(m, busca.getText()));
+
+        if(sb.toString().length() > 9) {
+            
+            System.out.println("| Setando linha invertida...\n");
+
+            tipo.setText("[LINHA INVERTIDA]");
+            resul.setText(sb.toString());
+
+        }
+    }
+    
+
+    
+    private void procuraColunas() {
+        
+        resul.setText("");
+        
+        System.out.println("procuraColunas() iniciada.");
+        
+        sb.delete(0, sb.length());
+        sb.append(colunaNormal(m, busca.getText()));
+
+        if(sb.toString().length() > 9) {
+
+            tipo.setText("[COLUNA NORMAL]");
+            resul.setText(sb.toString());
+
+        }
+
+        sb.delete(0, sb.length());
+        sb.append(colunaInvertida(m, busca.getText()));
+
+        if(sb.toString().length() > 9){
+
+            tipo.setText("[COLUNA INVERTIDA]");
+            resul.setText(sb.toString());
+
+        }
+        
+    }
+    
+    private void procuraDiagonais() {
+        
+        resul.setText("");
+        
+        System.out.println("procuraDiagonais() iniciada.");
+        
+        sb.delete(0, sb.length());
+        sb.append(diagonalPrincipalNormal(m, busca.getText()));
+
+        if (sb.length() > 9){
+
+            tipo.setText("[DIAGONAL PRINCIPAL NORMAL]");
+            resul.setText(sb.toString());
+
+        }
+
+        sb.delete(0, sb.length());
+        sb.append(diagonalPrincipalInvertida(m, busca.getText()));
+
+        if (sb.length() > 9){
+
+            tipo.setText("[DIAGONAL PRINCIPAL INVERTIDA]");
+            resul.setText(sb.toString());
+
+        }
+        
+        /*
+        sb.delete(0, sb.length());
+        sb.append(diagonalSecundariaNormal(m, busca.getText()));
+        
+        if (sb.toString().length() > 9){
+            
+            tipo.setText("[DIAGONAL SECUNDARIA NORMAL]");
+            resul.setText(sb.toString());
+            
+        }
+        
+        sb.delete(0, sb.length());
+        sb.append(diagonalSecundariaInvertida(m, busca.getText()));
+        
+        if (sb.toString().length() > 9){
+            
+            tipo.setText("[DIAGONAL SECUNDARIA INVERTIDA]");
+            resul.setText(sb.toString());
+        
+        }
+        */
+        
+    }
 
 
 
    
     
     private void comecaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comecaActionPerformed
-            if("Aguardando caça-palavras...".equals(l.getText())){
+            
+        if("Aguardando caça-palavras...".equals(l.getText())){
+            
             imprimeMatriz();
+            
             comeca.setVisible(false);
             lvl.setVisible(false);
             
@@ -550,67 +789,29 @@ public class CacaPalavra extends javax.swing.JFrame {
     
     
     private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
-        boolean achou = false;
+
+   
+        // NÍVEL GOIABINHA
         
-        StringBuilder sb = new StringBuilder();
+        procuraLinhas();
         
-        if(lvl.getSelectedItem().equals("1- Nível Goiabinha")){
-            if(linhaNormal(m, busca.getText()).length() > 9){
-                tipo.setText("LINHA NORMAL - "); // A PRIORI
-                resul.setText(linhaNormal(m, busca.getText()));
-                achou = true;
-            }
-            if(linhaInvertida(m, busca.getText()).length() > 9){
-                tipo.setText("LINHA INVERTIDA - ");
-                resul.setText(linhaInvertida(m, busca.getText()));
-                achou = true;
-            }
-        }
-        if(lvl.getSelectedItem().equals("2- Goiabinha master")){
-            if(colunaNormal(m, busca.getText()).length() > 9) {
-                tipo.setText("COLUNA NORMAL - ");
-                resul.setText(colunaNormal(m, busca.getText()));
-                achou = true;
-            }
-            if(colunaInvertida(m, busca.getText()).length() > 9){
-                tipo.setText("COLUNA INVERTIDA - ");
-                resul.setText(colunaInvertida(m, busca.getText()));
-                achou = true;
-            }
-        }
-        if(lvl.getSelectedItem().equals("3- Daniel")){
+        // NÍVEL GOIABINHA MASTER
+        
+        if(lvl.getSelectedItem().equals("2- Goiabinha master")) procuraColunas();
+        
+        // NÍVEL DANIEL
+        
+        else if (lvl.getSelectedItem().equals("3- Daniel")) {
             
-            sb.delete(0, sb.length());
-            sb.append(diagonalPrincipalNormal(m, busca.getText()));
+            procuraColunas();
             
-            if (sb.length() > 9){
-                tipo.setText("DIAGONAL 1 NORMAL - ");
-                resul.setText(sb.toString());
-                achou = true;
-            }
+            procuraDiagonais();      
             
-            sb.delete(0, sb.length());
-            sb.append(diagonalPrincipalInvertida(m, busca.getText()));
+        } else if (resul.getText().length() < 9) {
             
-            if (sb.length() > 9){
-                tipo.setText("DIAGONAL 1 INVERTIDA - ");
-                resul.setText(sb.toString());
-                achou = true;
-            }
-            /*if (diagonalSecundariaNormal(m, busca.getText()).length() > 9){
-            tipo.setText("DIAGONAL 2 NORMAL - ");
-            resul.setText(diagonalSecundariaNormal(m, busca.getText()));
-            achou = true;
-            }
-            if (diagonalSecundariaInvertida(m, busca.getText()).length() > 9){
-                tipo.setText("DIAGONAL 2 INVERTIDA - ");
-                resul.setText(diagonalSecundariaInvertida(m, busca.getText()));
-                achou = true;
-            }*/
-        }
-        if(!achou){
             tipo.setText("");
             resul.setText("NÃO ACHOU");
+            
         }
         /*String a = "oi";
         String ver = "<html><font color=RED> " + a + " </font></html>";

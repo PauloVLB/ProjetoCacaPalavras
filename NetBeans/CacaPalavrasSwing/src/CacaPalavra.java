@@ -81,6 +81,11 @@ public class CacaPalavra extends javax.swing.JFrame {
         b.setText("Sua busca:");
 
         btnDesistir.setText("Desistir");
+        btnDesistir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDesistirActionPerformed(evt);
+            }
+        });
 
         lvl.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         lvl.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1- Nível Goiabinha", "2- Goiabinha master", "3- Daniel" }));
@@ -347,72 +352,114 @@ public class CacaPalavra extends javax.swing.JFrame {
     
     private static String diagonalPrincipalNormal(char[][] m, String palavra) {
         
+        System.out.println("busca: " + palavra);
+        System.out.println("diagonalPrincipalNormal() iniciada.");
+        
         StringBuilder situacao = new StringBuilder("NAO ACHOU");
+        
+        palavra = palavra.toUpperCase();
         
         for (int i = 0; i < m.length; i++) {
             
-            for (int j = 0; j < m[i].length; j++) {
-                
-                String diagonal = converteDiagonalPrincipalString(m,i,j);
+            String linhaMatriz = converteLinhaString(m[i]);
             
-                if(diagonal.contains(palavra.toUpperCase())) {
+            System.out.printf("\tlinhaMatriz(%d) convertida para: %s\n", i,linhaMatriz);
+            
+            for (int j = 0; j < m[i].length; j++) {
+                       
+                if(linhaMatriz.charAt(j) == palavra.charAt(0)) {
+                    
+                  System.out.printf("\tlinhaMatriz.charAt(%d) == palavra.charAt(0).\n",j);
+                                           
+                  String diagonal = converteDiagonalPrincipalString(m,i,j);
                   
-                  situacao.delete(0, situacao.length());
+                  System.out.printf("\tdiagonal convertida para: %s\n",diagonal);
+                  
+                  if (diagonal.startsWith(palavra)) {
+                      
+                    situacao.delete(0, situacao.length());
                 
-                  int lComeco = diagonal.indexOf(palavra.toUpperCase());
-                
-                  situacao.append(insereSituacao(lComeco, j, lComeco + palavra.length()-1, j + palavra.length()-1));
-                
-                  break;
+                    situacao.append(insereSituacao(i,j, i + palavra.length()-1, j + palavra.length()-1));
+                  
+                    System.out.println("\tsituacao: " + situacao);
+                  
+                    System.out.println("Função diagonalPrincipalNormal() finalizada.\n\n");
+                  
+                    return situacao.toString(); 
+                  
+                  } else {
+                      
+                      System.out.printf("Não foi encontrado [%s] nessa diagonal.\n", palavra);
+                      
+                  }
                      
                 }
                   
             }
            
-        
         }
         
+        System.out.println("Função diagonalPrincipalNormal() finalizada.\n\n");
         
         return situacao.toString();
     }
     
     private static String diagonalPrincipalInvertida(char[][] m, String palavra) {
-            
-        StringBuilder situacao = new StringBuilder("NAO ACHOU");
-        StringBuilder sb = new StringBuilder(palavra);
         
-        palavra = sb.reverse().toString();
+        System.out.println("busca: " + palavra);
+        System.out.println("diagonalPrincipalInvertida() iniciada.");
+        
+        StringBuilder situacao = new StringBuilder("NAO ACHOU");
+        StringBuilder palavraInvertida = new StringBuilder(palavra);
+        
+        palavraInvertida.reverse();
+           
+        palavra = palavra.toUpperCase();
         
         for (int i = 0; i < m.length; i++) {
             
-            for (int j = 0; j < m[i].length; j++) {
-                
-                String diagonal = converteDiagonalPrincipalString(m,i,j);
+            String linhaMatriz = converteLinhaString(m[i]);
             
-                if(diagonal.contains(palavra.toUpperCase())) {
+            System.out.printf("\tlinhaMatriz(%d) convertida para: %s\n", i,linhaMatriz);
+            
+            for (int j = 0; j < m[i].length; j++) {
+                       
+                if(linhaMatriz.charAt(j) == palavra.charAt(palavra.length() - 1)) {
+                    
+                  System.out.printf("\tlinhaMatriz.charAt(%d) == palavra.charAt(%d).\n",j,palavra.length() - 1);
+                                           
+                  String diagonal = converteDiagonalPrincipalString(m,i,j);
                   
-                  situacao.delete(0, situacao.length());
+                  System.out.printf("\tdiagonal convertida para: %s\n",diagonal);
+                  
+                  if (diagonal.startsWith(palavraInvertida.toString().toUpperCase())) {
+                      
+                    situacao.delete(0, situacao.length());
                 
-                  int lComeco = diagonal.indexOf(palavra.toUpperCase());
-                
-                  situacao.append(insereSituacao(lComeco + palavra.length()-1, j + palavra.length()-1, lComeco, j));
-                
-                  break;
-                    
-                    
+                    situacao.append(insereSituacao(i + palavra.length()-1,j + palavra.length()-1,i,j));
+                  
+                    System.out.println("\tsituacao: " + situacao);
+                  
+                    System.out.println("Função diagonalPrincipalInvertida() finalizada.\n\n");
+                  
+                    return situacao.toString(); 
+                  
+                  } else {
+                      
+                      System.out.printf("Não foi encontrado [%s] nessa diagonal.\n", palavraInvertida.toString().toUpperCase());
+                      
+                  } 
                 }
-                  
-            }
-           
-        
+            }   
         }
         
+        System.out.println("Função diagonalPrincipalInvertida() finalizada.\n\n");
         
-        return situacao.toString();    
+        return situacao.toString();
         
     }
 
-    private static String diagonalSecundariaNormal(char[][] m, String palavra) {
+    /*private static String diagonalSecundariaNormal(char[][] m, String palavra) {
         
         StringBuilder situacao = new StringBuilder("NAO ACHOU");
         
@@ -477,7 +524,7 @@ public class CacaPalavra extends javax.swing.JFrame {
         
         return situacao.toString();    
         
-    }
+    }*/
 
 
 
@@ -504,6 +551,9 @@ public class CacaPalavra extends javax.swing.JFrame {
     
     private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
         boolean achou = false;
+        
+        StringBuilder sb = new StringBuilder();
+        
         if(lvl.getSelectedItem().equals("1- Nível Goiabinha")){
             if(linhaNormal(m, busca.getText()).length() > 9){
                 tipo.setText("LINHA NORMAL - "); // A PRIORI
@@ -529,26 +579,34 @@ public class CacaPalavra extends javax.swing.JFrame {
             }
         }
         if(lvl.getSelectedItem().equals("3- Daniel")){
-            if (diagonalPrincipalNormal(m, busca.getText()).length() > 9){
+            
+            sb.delete(0, sb.length());
+            sb.append(diagonalPrincipalNormal(m, busca.getText()));
+            
+            if (sb.length() > 9){
                 tipo.setText("DIAGONAL 1 NORMAL - ");
-                resul.setText(diagonalPrincipalNormal(m, busca.getText()));
+                resul.setText(sb.toString());
                 achou = true;
             }
-            if (diagonalPrincipalInvertida(m, busca.getText()).length() > 9){
+            
+            sb.delete(0, sb.length());
+            sb.append(diagonalPrincipalInvertida(m, busca.getText()));
+            
+            if (sb.length() > 9){
                 tipo.setText("DIAGONAL 1 INVERTIDA - ");
-                resul.setText(diagonalPrincipalInvertida(m, busca.getText()));
+                resul.setText(sb.toString());
                 achou = true;
             }
-            if (diagonalSecundariaNormal(m, busca.getText()).length() > 9){
-                tipo.setText("DIAGONAL 2 NORMAL - ");
-                resul.setText(diagonalSecundariaNormal(m, busca.getText()));
-                achou = true;
+            /*if (diagonalSecundariaNormal(m, busca.getText()).length() > 9){
+            tipo.setText("DIAGONAL 2 NORMAL - ");
+            resul.setText(diagonalSecundariaNormal(m, busca.getText()));
+            achou = true;
             }
             if (diagonalSecundariaInvertida(m, busca.getText()).length() > 9){
                 tipo.setText("DIAGONAL 2 INVERTIDA - ");
                 resul.setText(diagonalSecundariaInvertida(m, busca.getText()));
                 achou = true;
-            }
+            }*/
         }
         if(!achou){
             tipo.setText("");
@@ -566,6 +624,11 @@ public class CacaPalavra extends javax.swing.JFrame {
     private void lvlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lvlActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_lvlActionPerformed
+
+    private void btnDesistirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDesistirActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_btnDesistirActionPerformed
    
     
     

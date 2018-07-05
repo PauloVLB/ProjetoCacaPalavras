@@ -23,6 +23,13 @@ public class CacaPalavra extends javax.swing.JFrame {
         buscar.setVisible(false);
         b.setVisible(false);
         btnDesistir.setVisible(false);
+        comeco.setVisible(false);
+        fim.setVisible(false);
+        linhaC.setVisible(false);
+        linhaF.setVisible(false);
+        colunaC.setVisible(false);
+        colunaF.setVisible(false);
+        tipo.setVisible(false);
     }
   
     /**
@@ -54,7 +61,7 @@ public class CacaPalavra extends javax.swing.JFrame {
 
         jLabel2.setText("jLabel2");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Tela De Jogo");
 
         comeca.setText("Começar");
@@ -127,32 +134,10 @@ public class CacaPalavra extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(creditos))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(comeca, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(lvl, 0, 208, Short.MAX_VALUE))
-                                .addContainerGap())
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(busca, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(b, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnDesistir, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap())))
-                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(tipo, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(comeco)
                                     .addComponent(fim)
                                     .addGroup(layout.createSequentialGroup()
@@ -165,7 +150,29 @@ public class CacaPalavra extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(colunaF)
                                     .addComponent(linhaF))))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(creditos))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(busca, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(b, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(comeca, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(lvl, 0, 214, Short.MAX_VALUE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(btnDesistir, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(tipo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addContainerGap())))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -397,6 +404,7 @@ public class CacaPalavra extends javax.swing.JFrame {
     private static int linhaFim = 0;
     private static int colunaComeco = 0;
     private static int colunaFim = 0;
+    private static boolean achou = false;
     
     private static void insereSituacao(int lComeco, int cComeco, int lFim, int cFim) {
         
@@ -411,7 +419,7 @@ public class CacaPalavra extends javax.swing.JFrame {
     
     
     
-    private static void linhaNormal(char[][] m, String palavra) {
+    private void linhaNormal(char[][] m, String palavra) {
 	
         System.out.println("*linhaNormal() iniciada.-----------------------------\n");
 	
@@ -428,7 +436,8 @@ public class CacaPalavra extends javax.swing.JFrame {
                 insereSituacao(i, cComeco, i, cComeco + palavra.length()-1);
                 
                 //System.out.printf("\n*linhaNormal() finalizada.-----------------------------\n\n");
-                
+                tipo.setText("Linha Normal");
+                achou = true;
                 break;
                 
             } else {
@@ -442,7 +451,7 @@ public class CacaPalavra extends javax.swing.JFrame {
         
     }
 	
-    private static void linhaInvertida(char[][] m, String palavra) {
+    private void linhaInvertida(char[][] m, String palavra) {
 	
         System.out.println("*linhaInvertida() iniciada.-----------------------------\n");
         
@@ -463,7 +472,8 @@ public class CacaPalavra extends javax.swing.JFrame {
                 insereSituacao(i, cComeco + palavra.length()-1, i, cComeco); 
                 
 //                /System.out.printf("\n*linhaInvertida() finalizada.-----------------------------\n");
-                
+                tipo.setText("Linha Invertida");
+                achou = true;
                 break;
             
             } else {
@@ -481,7 +491,7 @@ public class CacaPalavra extends javax.swing.JFrame {
     
     
     
-    private static void colunaNormal(char[][] m, String palavra){
+    private void colunaNormal(char[][] m, String palavra){
         
         System.out.println("*colunaNormal() iniciada.-----------------------------\n");
 
@@ -498,7 +508,8 @@ public class CacaPalavra extends javax.swing.JFrame {
                 insereSituacao(cComeco, i , cComeco + palavra.length()-1, i); 
                 
                 //System.out.printf("\n*colunaNormal() finalizada.-----------------------------\n");
-
+                tipo.setText("Coluna Normal");
+                achou = true;
                 break;
                 
             } else {
@@ -512,7 +523,7 @@ public class CacaPalavra extends javax.swing.JFrame {
         
     }
     
-    private static void colunaInvertida(char[][] m, String palavra){
+    private void colunaInvertida(char[][] m, String palavra){
         
         System.out.println("*colunaInvertida() iniciada.-----------------------------\n");
         
@@ -532,10 +543,10 @@ public class CacaPalavra extends javax.swing.JFrame {
                 
                 insereSituacao(cComeco + palavra.length()-1, i, cComeco, i); 
                 
-                System.out.println("**situacao recebeu: " + situacao.toString());
+                tipo.setText("Coluna Invertida");
                 
                 //System.out.println("\n*colunaInvertida() finalizada.-----------------------------\n");
-		
+		achou = true;
                 break;
             
             } else {
@@ -553,7 +564,7 @@ public class CacaPalavra extends javax.swing.JFrame {
     
     
     
-    private static void diagonalPrincipalNormal(char[][] m, String palavra) {
+    private void diagonalPrincipalNormal(char[][] m, String palavra) {
         
         System.out.println("*diagonalPrincipalNormal() iniciada.-----------------------------\n");
 
@@ -576,7 +587,8 @@ public class CacaPalavra extends javax.swing.JFrame {
                     if (diagonal.startsWith(palavra)) {
                       
                         insereSituacao(i,j, i + palavra.length()-1, j + palavra.length()-1);
-                        
+                        tipo.setText("Diagonal principal normal");
+                        achou = true;
                         break;
 
                     } 
@@ -596,7 +608,7 @@ public class CacaPalavra extends javax.swing.JFrame {
         
     }
     
-    private static void diagonalPrincipalInvertida(char[][] m, String palavra) {
+    private void diagonalPrincipalInvertida(char[][] m, String palavra) {
         
         System.out.println("*diagonalPrincipalInvertida() iniciada.-----------------------------\n");
         
@@ -624,10 +636,10 @@ public class CacaPalavra extends javax.swing.JFrame {
                         
                         insereSituacao(i + palavra.length()-1,j + palavra.length()-1,i,j);
 
-                        System.out.printf("**situacao: %s\n\n",situacao);
-
+             
+                        tipo.setText("Diagonal principal invertida");
                         //System.out.println("*diagonalPrincipalInvertida() finalizada.-----------------------------\n\n");
-
+                        achou = true;
                         break;
 
                     } 
@@ -644,7 +656,7 @@ public class CacaPalavra extends javax.swing.JFrame {
         
     }
 
-    private static void diagonalSecundariaNormal(char[][] m, String palavra) {
+    private void diagonalSecundariaNormal(char[][] m, String palavra) {
         
         System.out.println("*diagonalSecundariaNormal() iniciada.-----------------------------\n");
         
@@ -667,7 +679,8 @@ public class CacaPalavra extends javax.swing.JFrame {
                         insereSituacao(i, j, i + palavra.length() - 1, j - (palavra.length() - 1));
 
                         //System.out.println("*diagonalSecundariaNormal() finalizada.-----------------------------\n\n");
-
+                        tipo.setText("Diagonal secundária normal");
+                        achou = true;
                         break;
                         
                     } else {
@@ -684,7 +697,7 @@ public class CacaPalavra extends javax.swing.JFrame {
     
     }
     
-    private static void diagonalSecundariaInvertida(char[][] m, String palavra) {
+    private void diagonalSecundariaInvertida(char[][] m, String palavra) {
         
         System.out.println("*diagonalSecundariaInvertida() iniciada.-----------------------------\n");
         
@@ -711,7 +724,8 @@ public class CacaPalavra extends javax.swing.JFrame {
                         insereSituacao(i + palavra.length() - 1, j - (palavra.length() - 1), i, j);
                   
                         //System.out.println("*diagonalSecundariaInvertida() finalizada.-----------------------------\n\n");
-                        
+                        tipo.setText("Diagonal secundária invertida");
+                        achou = true;
                         break;
                         
                     } else {
@@ -795,37 +809,57 @@ public class CacaPalavra extends javax.swing.JFrame {
 
     
     
+    private void setNada(){
+        tipo.setVisible(false);
+        linhaC.setText("Linha: - ");
+        linhaF.setText("Linha: - ");
+        colunaC.setText("Coluna: - ");
+        colunaF.setText("Coluna: - ");
+    }
     
+    private void setSituacao(){
+        linhaC.setText("Linha: ".concat(Integer.toString(linhaComeco)));
+        linhaF.setText("Linha: ".concat(Integer.toString(linhaFim)));
+        colunaC.setText("Coluna: ".concat(Integer.toString(colunaComeco)));
+        colunaF.setText("Coluna: ".concat(Integer.toString(colunaFim)));
+    }
     
     
     private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
-        
-        
+        comeco.setVisible(true);
+        fim.setVisible(true);
+        linhaC.setVisible(true);
+        linhaF.setVisible(true);
+        colunaC.setVisible(true);
+        colunaF.setVisible(true);
+       
+        setNada();
         // NÍVEL GOIABINHA
-        
-        procuraLinhas();
-        
-        // NÍVEL GOIABINHA MASTER
-        
-        if(lvl.getSelectedItem().equals("2- Goiabinha master")) procuraColunas();
-        
-        // NÍVEL DANIEL
-        
-        else if (lvl.getSelectedItem().equals("3- Daniel")) {
+        if(!busca.getText().equals("")){
+            procuraLinhas();
+
+            // NÍVEL GOIABINHA MASTER
+
+            if(lvl.getSelectedItem().equals("2- Goiabinha master")) procuraColunas();
+
+            // NÍVEL DANIEL
+
+            else if (lvl.getSelectedItem().equals("3- Daniel")) {
+
+                procuraColunas();
+
+                procuraDiagonais();      
+
+            }
             
-            procuraColunas();
-            
-            procuraDiagonais();      
-            
+            if(achou){
+                tipo.setVisible(true);
+                setSituacao();
+            }
+            achou = false;
         }
         
-        comeco.setText()
-        
         //imprimeMatrizFinal();
-        
-        /*String a = "oi";
-        String ver = "<html><font color=RED> " + a + " </font></html>";
-        resul.setText(ver);*/
     }//GEN-LAST:event_buscarActionPerformed
 
     
@@ -838,18 +872,10 @@ public class CacaPalavra extends javax.swing.JFrame {
 
     private void btnDesistirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDesistirActionPerformed
         // TODO add your handling code here:
+        JOptionPane.showMessageDialog(null,"Bucho!");
         System.exit(0);
     }//GEN-LAST:event_btnDesistirActionPerformed
    
-    
-    
-    
-    
-    private static void mudaCor(String palavra){
-        
-    }
-    
-    
     
     
     

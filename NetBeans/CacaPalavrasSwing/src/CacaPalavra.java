@@ -810,7 +810,8 @@ public class CacaPalavra extends javax.swing.JFrame {
     
     
     private void setNada(){
-        tipo.setVisible(false);
+        tipo.setVisible(true);
+        tipo.setText("Não achou");
         linhaC.setText("Linha: - ");
         linhaF.setText("Linha: - ");
         colunaC.setText("Coluna: - ");
